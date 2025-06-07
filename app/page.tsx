@@ -146,41 +146,86 @@ export default function HomePage() {
 
       {/* Creators Section */}
       <div className="min-h-screen bg-white text-black flex">
-        <div className="flex-1 p-16">
-          <div className="mb-8">
-            <div className="text-xs font-mono mb-4 text-gray-600">A TEAM-BASED EXTRACTION SHOOTER</div>
-            <h2 className="text-6xl font-black leading-tight mb-8">
-              FROM THE CREATORS
-              <br />
-              OF HALO AND DESTINY
-            </h2>
-          </div>
+        <div className="flex-1 flex flex-col">
+          {/* Text content */}
+          <div className="flex-1 flex flex-col justify-center px-16 py-12">
+            <div className="mb-12">
+              <div className="text-xs font-mono mb-6 text-gray-600 uppercase tracking-wider">A TEAM-BASED EXTRACTION SHOOTER</div>
+              <h2 className="text-5xl lg:text-6xl font-black leading-[0.9] mb-8 max-w-lg">
+                FROM THE CREATORS
+                <br />
+                OF HALO AND DESTINY
+              </h2>
+            </div>
 
-          <div className="max-w-md space-y-6 font-mono text-sm leading-relaxed">
-            <p>
-              YOU ARE A RUNNER, A CYBERNETIC MERCENARY SCOURING THE REMAINS OF A LOST COLONY FOR FORTUNE AND POWER. TEAM
-              UP IN CREWS OF THREE AS YOU BATTLE RIVAL RUNNER TEAMS AND HOSTILE SECURITY FORCES FOR WEAPONS AND
-              UPGRADES.
-            </p>
-            <p>
-              SURVIVE AND EVERYTHING YOU'VE SCAVENGED IS YOURS TO KEEP FOR FUTURE RUNS ON TAU CETI IV OR IF YOU'RE BRAVE
-              ENOUGH, A JOURNEY TO THE DERELICT Patchdrop SHIP THAT HANGS ABOVE.
-            </p>
+            <div className="max-w-lg space-y-6 font-mono text-sm leading-relaxed">
+              <p>
+                YOU ARE A RUNNER, A CYBERNETIC MERCENARY SCOURING THE REMAINS OF A LOST COLONY FOR FORTUNE AND POWER. TEAM
+                UP IN CREWS OF THREE AS YOU BATTLE RIVAL RUNNER TEAMS AND HOSTILE SECURITY FORCES FOR WEAPONS AND
+                UPGRADES.
+              </p>
+              <p>
+                SURVIVE AND EVERYTHING YOU'VE SCAVENGED IS YOURS TO KEEP FOR FUTURE RUNS ON TAU CETI IV OR IF YOU'RE BRAVE
+                ENOUGH, A JOURNEY TO THE DERELICT Patchdrop SHIP THAT HANGS ABOVE.
+              </p>
+            </div>
+          </div>
+          
+          {/* Half-height image below text */}
+          <div className="flex-1 relative min-h-[400px]">
+            <UnsplashImageComponent
+              query="cyberpunk runner mercenary gaming character art"
+              alt="Cybernetic Runner Character"
+              width={800}
+              height={400}
+              className="w-full h-full object-cover"
+              orientation="landscape"
+            />
+            <div className="absolute top-6 left-6 bg-black/70 text-white px-4 py-3 backdrop-blur-sm">
+              <p className="font-mono text-xs mb-1 opacity-80">BECOME THE LEGEND</p>
+              <p className="font-bold text-lg">FORGE YOUR DESTINY</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex-1 relative">
-          <UnsplashImageComponent
-            query="futuristic spaceship sci-fi gaming concept art"
-            alt="Patchdrop Game Artwork"
-            width={800}
-            height={600}
-            className="w-full h-full object-cover"
-            orientation="landscape"
-          />
-          <div className="absolute top-0 right-0 bg-black/60 text-white p-4 m-4">
-            <p className="font-mono text-sm">EXPLORE THE UNKNOWN</p>
-            <p className="font-bold text-xl">NEW FRONTIERS AWAIT</p>
+        <div className="flex-1 flex flex-col">
+          {/* Half-height image */}
+          <div className="flex-1 relative min-h-[400px]">
+            <UnsplashImageComponent
+              query="futuristic spaceship sci-fi gaming concept art"
+              alt="Patchdrop Game Artwork"
+              width={800}
+              height={400}
+              className="w-full h-full object-cover"
+              orientation="landscape"
+            />
+            <div className="absolute top-6 right-6 bg-black/70 text-white px-4 py-3 backdrop-blur-sm">
+              <p className="font-mono text-xs mb-1 opacity-80">EXPLORE THE UNKNOWN</p>
+              <p className="font-bold text-lg">NEW FRONTIERS AWAIT</p>
+            </div>
+          </div>
+          
+          {/* Text content below image */}
+          <div className="flex-1 flex flex-col justify-center px-16 py-12">
+            <div className="mb-12">
+              <div className="text-xs font-mono mb-6 text-gray-600 uppercase tracking-wider">NEXT-GENERATION GAMEPLAY</div>
+              <h3 className="text-5xl lg:text-6xl font-black leading-[0.9] mb-8 max-w-lg">
+                IMMERSIVE COMBAT
+                <br />
+                TACTICAL STRATEGY
+              </h3>
+            </div>
+
+            <div className="max-w-lg space-y-6 font-mono text-sm leading-relaxed">
+              <p>
+                EXPERIENCE REVOLUTIONARY COMBAT MECHANICS WITH ADVANCED AI COMPANIONS. UTILIZE CUTTING-EDGE WEAPONS SYSTEMS
+                AND ENVIRONMENTAL DESTRUCTION TO GAIN THE UPPER HAND IN BATTLES.
+              </p>
+              <p>
+                COORDINATE WITH YOUR SQUAD USING REAL-TIME TACTICAL COMMUNICATION. ADAPT YOUR STRATEGY AS DYNAMIC EVENTS
+                UNFOLD ACROSS PROCEDURALLY GENERATED BATTLEFIELDS.
+              </p>
+            </div>
           </div>
         </div>
       </div>
