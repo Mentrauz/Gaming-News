@@ -229,6 +229,140 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-black text-white border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-8 py-16">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            {/* Brand Section */}
+            <div className="space-y-6">
+              <div className="flex items-center space-x-3">
+                <Image 
+                  src="/logo.png" 
+                  alt="Patchdrop Logo" 
+                  width={40} 
+                  height={40} 
+                  className="rounded-full" 
+                />
+                <span className="text-xl font-black">PATCHDROP</span>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed font-mono">
+                THE ULTIMATE DESTINATION FOR GAMING NEWS, HARDWARE REVIEWS, AND INDUSTRY INSIGHTS. 
+                STAY AHEAD OF THE CURVE.
+              </p>
+              <div className="flex space-x-4">
+                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                  <span className="text-black font-mono text-xs">TW</span>
+                </div>
+                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                  <span className="text-black font-mono text-xs">YT</span>
+                </div>
+                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                  <span className="text-black font-mono text-xs">DC</span>
+                </div>
+                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                  <span className="text-black font-mono text-xs">RD</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Gaming Coverage */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[GAMING_COVERAGE]</h3>
+              <div className="space-y-3 font-mono text-sm">
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] LATEST DROPS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] PATCH NOTES</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] GAMING NEWS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] RUMOR RADAR</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] FPS FOCUS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] DEV INTERVIEWS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] DROP REVIEWS</div>
+              </div>
+            </div>
+
+            {/* Tech Hub */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[TECH_HUB]</h3>
+              <div className="space-y-3 font-mono text-sm">
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] HARDWARE REVIEWS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] BENCHMARKS</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] PRICE TRACKER</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] BUILD GUIDES</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] GPU UPDATES</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] COOLING TECH</div>
+                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] MARKET ANALYSIS</div>
+              </div>
+            </div>
+
+            {/* Newsletter Signup */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[STAY_CONNECTED]</h3>
+              <p className="text-gray-400 text-sm font-mono">
+                GET BREAKING GAMING NEWS AND EXCLUSIVE DROPS DELIVERED TO YOUR TERMINAL.
+              </p>
+              <div className="space-y-3">
+                <div className="flex">
+                  <input 
+                    type="email" 
+                    placeholder="your.email@domain.com" 
+                    className="flex-1 bg-gray-900 border border-gray-700 px-4 py-2 text-sm font-mono focus:border-[#cd48ec] focus:outline-none"
+                  />
+                  <Button className="bg-[#cd48ec] text-black hover:bg-[#b93fd4] font-mono px-6">
+                    SYNC
+                  </Button>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input type="checkbox" id="newsletter" className="w-4 h-4 text-[#cd48ec]" />
+                  <label htmlFor="newsletter" className="text-xs text-gray-400 font-mono">
+                    RECEIVE WEEKLY TECH REPORTS
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Platform Links */}
+          <div className="border-t border-gray-800 pt-8 mb-8">
+            <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-4">[SUPPORTED_PLATFORMS]</h4>
+            <div className="flex flex-wrap gap-4">
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
+                <span className="font-mono text-sm">STEAM</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
+                <span className="font-mono text-sm">PLAYSTATION 5</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
+                <span className="font-mono text-sm">XBOX SERIES X|S</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
+                <span className="font-mono text-sm">EPIC GAMES</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
+                <span className="font-mono text-sm">NVIDIA GeForce NOW</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Footer */}
+          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 text-xs font-mono text-gray-400">
+              <span>© 2024 PATCHDROP INTERACTIVE. ALL RIGHTS RESERVED.</span>
+              <div className="flex space-x-4">
+                <span className="hover:text-white transition-colors cursor-pointer">PRIVACY_POLICY</span>
+                <span className="hover:text-white transition-colors cursor-pointer">TERMS_OF_SERVICE</span>
+                <span className="hover:text-white transition-colors cursor-pointer">COOKIE_SETTINGS</span>
+                <span className="hover:text-white transition-colors cursor-pointer">CONTACT_US</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 text-xs font-mono text-gray-400">
+              <span>POWERED BY</span>
+              <div className="w-2 h-2 bg-[#cd48ec] rounded-full animate-pulse"></div>
+              <span className="text-[#cd48ec]">NEXT.JS & VERCEL</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
