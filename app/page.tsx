@@ -52,7 +52,6 @@ export default function HomePage() {
                   Game Studio<br />
                   Announces New Title
                 </h1>
-                <p className="text-2xl font-bold text-[#cd48ec] mt-2">WHERE LEGENDS ARE FORGED</p>
               </div>
             </div>
           </div>
@@ -139,9 +138,9 @@ export default function HomePage() {
           </div>
 
           {/* Subscribe Button */}
-          <div className="absolute bottom-8 right-8">
+          {/* <div className="absolute bottom-8 right-8">
             <Button className="bg-black text-[#cd48ec] hover:bg-gray-800 font-mono">GET ALERTS ↗</Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
