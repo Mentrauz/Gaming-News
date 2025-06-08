@@ -252,17 +252,33 @@ export default function HomePage() {
                 STAY AHEAD OF THE CURVE.
               </p>
               <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                <div className="relative group w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
                   <span className="text-black font-mono text-xs">TW</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black border border-[#cd48ec] rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                    <span className="text-[#cd48ec] font-mono text-xs">[● COMING SOON]</span>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#cd48ec]"></div>
+                  </div>
                 </div>
-                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                <div className="relative group w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
                   <span className="text-black font-mono text-xs">YT</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black border border-[#cd48ec] rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                    <span className="text-[#cd48ec] font-mono text-xs">[● COMING SOON]</span>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#cd48ec]"></div>
+                  </div>
                 </div>
-                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                <div className="relative group w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
                   <span className="text-black font-mono text-xs">DC</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black border border-[#cd48ec] rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                    <span className="text-[#cd48ec] font-mono text-xs">[● COMING SOON]</span>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#cd48ec]"></div>
+                  </div>
                 </div>
-                <div className="w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                <div className="relative group w-10 h-10 bg-[#cd48ec] rounded flex items-center justify-center hover:bg-[#b93fd4] transition-colors cursor-pointer">
                   <span className="text-black font-mono text-xs">RD</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black border border-[#cd48ec] rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                    <span className="text-[#cd48ec] font-mono text-xs">[● COMING SOON]</span>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#cd48ec]"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -323,7 +339,7 @@ export default function HomePage() {
           </div>
 
           {/* Platform Links */}
-          <div className="border-t border-gray-800 pt-8 mb-8">
+          {/* <div className="border-t border-gray-800 pt-8 mb-8">
             <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-4">[SUPPORTED_PLATFORMS]</h4>
             <div className="flex flex-wrap gap-4">
               <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] transition-colors">
@@ -342,7 +358,7 @@ export default function HomePage() {
                 <span className="font-mono text-sm">NVIDIA GeForce NOW</span>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Bottom Footer */}
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
