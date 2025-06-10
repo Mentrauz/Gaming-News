@@ -72,31 +72,57 @@ export default function HomePage() {
           </div>
 
           {/* Game Screenshots */}
-          <div className="grid grid-cols-2 gap-4 mt-16">
+          <div className="grid grid-cols-2 gap-3 mt-16">
             <div className="aspect-video bg-purple-900 rounded overflow-hidden relative">
               <UnsplashImageComponent
                 query="gaming setup rgb keyboard mouse"
                 alt="Game Screenshot 1"
-                width={400}
-                height={225}
+                width={300}
+                height={169}
                 className="w-full h-full object-cover"
                 orientation="landscape"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                <p className="text-white font-bold">BATTLE STATION READY</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                <p className="text-white font-bold text-sm">BATTLE STATION READY</p>
               </div>
             </div>
             <div className="aspect-video bg-blue-900 rounded overflow-hidden relative">
               <UnsplashImageComponent
                 query="esports tournament competitive gaming"
                 alt="Game Screenshot 2"
-                width={400}
-                height={225}
+                width={300}
+                height={169}
                 className="w-full h-full object-cover"
                 orientation="landscape"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                <p className="text-white font-bold">COMPETE AT THE HIGHEST LEVEL</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                <p className="text-white font-bold text-sm">COMPETE AT THE HIGHEST LEVEL</p>
+              </div>
+            </div>
+            <div className="aspect-video bg-green-900 rounded overflow-hidden relative">
+              <UnsplashImageComponent
+                query="virtual reality gaming headset futuristic"
+                alt="Game Screenshot 3"
+                width={300}
+                height={169}
+                className="w-full h-full object-cover"
+                orientation="landscape"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                <p className="text-white font-bold text-sm">NEXT-GEN IMMERSION</p>
+              </div>
+            </div>
+            <div className="aspect-video bg-red-900 rounded overflow-hidden relative">
+              <UnsplashImageComponent
+                query="gaming streamer setup neon lights professional"
+                alt="Game Screenshot 4"
+                width={300}
+                height={169}
+                className="w-full h-full object-cover"
+                orientation="landscape"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                <p className="text-white font-bold text-sm">STREAM LIKE A PRO</p>
               </div>
             </div>
           </div>
@@ -141,6 +167,194 @@ export default function HomePage() {
           {/* <div className="absolute bottom-8 right-8">
             <Button className="bg-black text-[#cd48ec] hover:bg-gray-800 font-mono">GET ALERTS ↗</Button>
           </div> */}
+        </div>
+      </div>
+
+      {/* Gaming News Feed Section */}
+      <div className="min-h-screen bg-black text-white">
+        <div className="max-w-7xl mx-auto px-8 py-16">
+          {/* Section Header */}
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <div className="text-xs font-mono mb-4 text-[#cd48ec] uppercase tracking-wider">[LIVE_FEED]</div>
+              <h2 className="text-5xl lg:text-6xl font-black leading-tight mb-4">
+                TRENDING NOW
+                <br />
+                <span className="text-[#cd48ec]">GAMING PULSE</span>
+              </h2>
+              <p className="text-gray-400 font-mono text-sm max-w-md">
+                REAL-TIME GAMING NEWS, INDUSTRY UPDATES, AND BREAKING DEVELOPMENTS FROM ACROSS THE DIGITAL FRONTIER.
+              </p>
+            </div>
+            <div className="bg-[#cd48ec] text-black px-6 py-3 font-mono text-sm font-bold hover:bg-[#b93fd4] transition-colors cursor-pointer">
+              VIEW ALL STORIES [↗]
+            </div>
+          </div>
+
+          {/* Breaking News Ticker */}
+          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-12">
+            <div className="flex items-center space-x-4">
+              <div className="bg-red-500 text-white px-3 py-1 text-xs font-mono font-bold animate-pulse">
+                BREAKING
+              </div>
+              <div className="font-mono text-sm text-gray-300 flex-1">
+                <span className="text-[#cd48ec]">[12:45 GMT]</span> Major gaming studio announces surprise acquisition • 
+                <span className="text-[#cd48ec]"> [12:30 GMT]</span> New GPU benchmark results leaked • 
+                <span className="text-[#cd48ec]"> [12:15 GMT]</span> Esports tournament prize pool reaches record high
+              </div>
+            </div>
+          </div>
+
+          {/* News Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {/* Featured Story */}
+            <div className="lg:col-span-2 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden hover:border-[#cd48ec] transition-colors group">
+              <div className="aspect-video relative">
+                                 <UnsplashImageComponent
+                   query="esports tournament championship prize pool competitive gaming arena"
+                   alt="Featured Gaming News"
+                   width={600}
+                   height={338}
+                   className="w-full h-full object-cover"
+                   orientation="landscape"
+                 />
+                <div className="absolute top-4 left-4 bg-[#cd48ec] text-black px-3 py-1 text-xs font-mono font-bold">
+                  FEATURED
+                </div>
+                <div className="absolute bottom-4 left-4 bg-black/80 text-white px-4 py-2 backdrop-blur-sm">
+                  <p className="font-mono text-xs text-[#cd48ec] mb-1">[ESPORTS]</p>
+                  <p className="font-bold text-lg">WORLD CHAMPIONSHIP FINALS SET</p>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-black mb-4 group-hover:text-[#cd48ec] transition-colors">
+                  MAJOR ESPORTS TOURNAMENT ANNOUNCES RECORD PRIZE POOL AND NEW FORMAT CHANGES
+                </h3>
+                <p className="text-gray-400 font-mono text-sm leading-relaxed mb-4">
+                  The upcoming championship will feature revolutionary gameplay mechanics and the largest prize pool in competitive gaming history. Teams from around the world prepare for the ultimate showdown.
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4 text-xs font-mono text-gray-500">
+                    <span>[●] 2 HOURS AGO</span>
+                    <span>[●] BY PATCHDROP_TEAM</span>
+                    <span>[●] 847 VIEWS</span>
+                  </div>
+                  <div className="text-[#cd48ec] font-mono text-sm cursor-pointer hover:text-white">
+                    READ_MORE [↗]
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar News */}
+            <div className="space-y-6">
+              {/* News Card 1 */}
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
+                <div className="flex items-start space-x-4">
+                  <div className="w-20 h-20 bg-purple-900 rounded overflow-hidden flex-shrink-0">
+                                         <UnsplashImageComponent
+                       query="next generation GPU graphics card performance benchmark leak"
+                       alt="GPU News"
+                       width={80}
+                       height={80}
+                       className="w-full h-full object-cover"
+                       orientation="squarish"
+                     />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[HARDWARE]</p>
+                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
+                      NEXT-GEN GPU LEAK REVEALS MASSIVE PERFORMANCE GAINS
+                    </h4>
+                    <div className="text-xs font-mono text-gray-500">
+                      <span>[●] 4 HOURS AGO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* News Card 2 */}
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
+                <div className="flex items-start space-x-4">
+                  <div className="w-20 h-20 bg-blue-900 rounded overflow-hidden flex-shrink-0">
+                                         <UnsplashImageComponent
+                       query="indie game development studio programming engine revolutionary coding"
+                       alt="Dev News"
+                       width={80}
+                       height={80}
+                       className="w-full h-full object-cover"
+                       orientation="squarish"
+                     />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[DEV_UPDATES]</p>
+                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
+                      INDIE STUDIO RELEASES REVOLUTIONARY GAME ENGINE
+                    </h4>
+                    <div className="text-xs font-mono text-gray-500">
+                      <span>[●] 6 HOURS AGO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* News Card 3 */}
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
+                <div className="flex items-start space-x-4">
+                  <div className="w-20 h-20 bg-green-900 rounded overflow-hidden flex-shrink-0">
+                                         <UnsplashImageComponent
+                       query="mobile gaming market milestone smartphone gaming industry growth"
+                       alt="Mobile Gaming News"
+                       width={80}
+                       height={80}
+                       className="w-full h-full object-cover"
+                       orientation="squarish"
+                     />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[MOBILE]</p>
+                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
+                      MOBILE GAMING MARKET REACHES NEW MILESTONE
+                    </h4>
+                    <div className="text-xs font-mono text-gray-500">
+                      <span>[●] 8 HOURS AGO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Category Tags */}
+          <div className="border-t border-gray-800 pt-8">
+            <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-6">[EXPLORE_CATEGORIES]</h4>
+            <div className="flex flex-wrap gap-3">
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] FPS_FOCUS</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] RPG_REALM</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] INDIE_INSIDER</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] HARDWARE_HUB</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] RUMOR_RADAR</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] PATCH_NOTES</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] ESPORTS_ELITE</span>
+              </div>
+              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
+                <span className="font-mono text-sm">[●] DEV_DIARIES</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
