@@ -2,6 +2,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Download, X, Square, Grid3X3, RotateCcw, Plus, Minus } from "lucide-react"
 import { UnsplashImageComponent } from "@/components/UnsplashImage"
+import { GamingNews, BreakingNewsTicker } from "@/components/GamingNews"
+import { HeroBreakingNewsSection, FeaturedEsportsStory, HardwareNewsCard, IndieGameNewsCard, MobileGamingNewsCard, LatestNewsGrid } from "@/components/CategoryNews"
 
 export default function HomePage() {
   return (
@@ -30,33 +32,8 @@ export default function HomePage() {
         <div className="bg-[#cd48ec] text-black px-4 py-2 font-mono text-sm font-bold">SUBSCRIBE NOW [↗]</div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="relative h-screen flex">
-        {/* Main Content */}
-        <div className="flex-1 relative">
-          <UnsplashImageComponent 
-            query="cyberpunk gaming futuristic neon city" 
-            alt="Patchdrop Game Background" 
-            width={1920} 
-            height={1080}
-            fill={true}
-            className="object-cover" 
-            priority={true}
-            orientation="landscape"
-          />
-          <div className="absolute inset-0 bg-black/20">
-            <div className="flex flex-col justify-center h-full px-16">
-              <div className="mb-8">
-                <h1 className="text-5xl font-black tracking-tight leading-tight mb-0 max-w-4xl">
-                  BREAKING:<br />
-                  Game Studio<br />
-                  Announces New Title
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Hero Section with Dynamic Background */}
+      <HeroBreakingNewsSection />
 
       {/* News Section */}
       <div className="flex min-h-screen">
@@ -71,61 +48,8 @@ export default function HomePage() {
             <Button className="bg-black text-white hover:bg-gray-800 font-mono">SEE ALL NEWS ↗</Button>
           </div>
 
-          {/* Game Screenshots */}
-          <div className="grid grid-cols-2 gap-3 mt-16">
-            <div className="aspect-video bg-purple-900 rounded overflow-hidden relative">
-              <UnsplashImageComponent
-                query="gaming setup rgb keyboard mouse"
-                alt="Game Screenshot 1"
-                width={300}
-                height={169}
-                className="w-full h-full object-cover"
-                orientation="landscape"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                <p className="text-white font-bold text-sm">BATTLE STATION READY</p>
-              </div>
-            </div>
-            <div className="aspect-video bg-blue-900 rounded overflow-hidden relative">
-              <UnsplashImageComponent
-                query="esports tournament competitive gaming"
-                alt="Game Screenshot 2"
-                width={300}
-                height={169}
-                className="w-full h-full object-cover"
-                orientation="landscape"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                <p className="text-white font-bold text-sm">COMPETE AT THE HIGHEST LEVEL</p>
-              </div>
-            </div>
-            <div className="aspect-video bg-green-900 rounded overflow-hidden relative">
-              <UnsplashImageComponent
-                query="virtual reality gaming headset futuristic"
-                alt="Game Screenshot 3"
-                width={300}
-                height={169}
-                className="w-full h-full object-cover"
-                orientation="landscape"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                <p className="text-white font-bold text-sm">NEXT-GEN IMMERSION</p>
-              </div>
-            </div>
-            <div className="aspect-video bg-red-900 rounded overflow-hidden relative">
-              <UnsplashImageComponent
-                query="gaming streamer setup neon lights professional"
-                alt="Game Screenshot 4"
-                width={300}
-                height={169}
-                className="w-full h-full object-cover"
-                orientation="landscape"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                <p className="text-white font-bold text-sm">STREAM LIKE A PRO</p>
-              </div>
-            </div>
-          </div>
+          {/* Latest Gaming News Grid */}
+          <LatestNewsGrid />
         </div>
 
         {/* Right Sidebar */}
@@ -197,136 +121,48 @@ export default function HomePage() {
               <div className="bg-red-500 text-white px-3 py-1 text-xs font-mono font-bold animate-pulse">
                 BREAKING
               </div>
-              <div className="font-mono text-sm text-gray-300 flex-1">
-                <span className="text-[#cd48ec]">[12:45 GMT]</span> Major gaming studio announces surprise acquisition • 
-                <span className="text-[#cd48ec]"> [12:30 GMT]</span> New GPU benchmark results leaked • 
-                <span className="text-[#cd48ec]"> [12:15 GMT]</span> Esports tournament prize pool reaches record high
-              </div>
+              <BreakingNewsTicker maxArticles={3} />
             </div>
           </div>
 
           {/* News Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Featured Story */}
-            <div className="lg:col-span-2 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden hover:border-[#cd48ec] transition-colors group">
-              <div className="aspect-video relative">
-                                 <UnsplashImageComponent
-                   query="esports tournament championship prize pool competitive gaming arena"
-                   alt="Featured Gaming News"
-                   width={600}
-                   height={338}
-                   className="w-full h-full object-cover"
-                   orientation="landscape"
-                 />
-                <div className="absolute top-4 left-4 bg-[#cd48ec] text-black px-3 py-1 text-xs font-mono font-bold">
-                  FEATURED
-                </div>
-                <div className="absolute bottom-4 left-4 bg-black/80 text-white px-4 py-2 backdrop-blur-sm">
-                  <p className="font-mono text-xs text-[#cd48ec] mb-1">[ESPORTS]</p>
-                  <p className="font-bold text-lg">WORLD CHAMPIONSHIP FINALS SET</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-black mb-4 group-hover:text-[#cd48ec] transition-colors">
-                  MAJOR ESPORTS TOURNAMENT ANNOUNCES RECORD PRIZE POOL AND NEW FORMAT CHANGES
-                </h3>
-                <p className="text-gray-400 font-mono text-sm leading-relaxed mb-4">
-                  The upcoming championship will feature revolutionary gameplay mechanics and the largest prize pool in competitive gaming history. Teams from around the world prepare for the ultimate showdown.
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4 text-xs font-mono text-gray-500">
-                    <span>[●] 2 HOURS AGO</span>
-                    <span>[●] BY PATCHDROP_TEAM</span>
-                    <span>[●] 847 VIEWS</span>
-                  </div>
-                  <div className="text-[#cd48ec] font-mono text-sm cursor-pointer hover:text-white">
-                    READ_MORE [↗]
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FeaturedEsportsStory />
 
             {/* Sidebar News */}
             <div className="space-y-6">
-              {/* News Card 1 */}
-              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
-                <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 bg-purple-900 rounded overflow-hidden flex-shrink-0">
-                                         <UnsplashImageComponent
-                       query="next generation GPU graphics card performance benchmark leak"
-                       alt="GPU News"
-                       width={80}
-                       height={80}
-                       className="w-full h-full object-cover"
-                       orientation="squarish"
-                     />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[HARDWARE]</p>
-                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
-                      NEXT-GEN GPU LEAK REVEALS MASSIVE PERFORMANCE GAINS
-                    </h4>
-                    <div className="text-xs font-mono text-gray-500">
-                      <span>[●] 4 HOURS AGO</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Hardware News */}
+              <HardwareNewsCard />
 
-              {/* News Card 2 */}
-              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
-                <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 bg-blue-900 rounded overflow-hidden flex-shrink-0">
-                                         <UnsplashImageComponent
-                       query="indie game development studio programming engine revolutionary coding"
-                       alt="Dev News"
-                       width={80}
-                       height={80}
-                       className="w-full h-full object-cover"
-                       orientation="squarish"
-                     />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[DEV_UPDATES]</p>
-                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
-                      INDIE STUDIO RELEASES REVOLUTIONARY GAME ENGINE
-                    </h4>
-                    <div className="text-xs font-mono text-gray-500">
-                      <span>[●] 6 HOURS AGO</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Indie Game Dev News */}
+              <IndieGameNewsCard />
 
-              {/* News Card 3 */}
-              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 hover:border-[#cd48ec] transition-colors group cursor-pointer">
-                <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 bg-green-900 rounded overflow-hidden flex-shrink-0">
-                                         <UnsplashImageComponent
-                       query="mobile gaming market milestone smartphone gaming industry growth"
-                       alt="Mobile Gaming News"
-                       width={80}
-                       height={80}
-                       className="w-full h-full object-cover"
-                       orientation="squarish"
-                     />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-mono text-xs text-[#cd48ec] mb-2">[MOBILE]</p>
-                    <h4 className="font-bold text-sm mb-2 group-hover:text-[#cd48ec] transition-colors">
-                      MOBILE GAMING MARKET REACHES NEW MILESTONE
-                    </h4>
-                    <div className="text-xs font-mono text-gray-500">
-                      <span>[●] 8 HOURS AGO</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Mobile Gaming News */}
+              <MobileGamingNewsCard />
             </div>
           </div>
 
+          {/* Live Gaming News Feed */}
+          <div className="border-t border-gray-800 pt-12">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-2">[LIVE_NEWS_FEED]</h4>
+                <h3 className="text-3xl font-black mb-4">REAL-TIME GAMING NEWS</h3>
+                <p className="text-gray-400 font-mono text-sm max-w-md">
+                  POWERED BY NEWS API • UPDATED EVERY MINUTE • MULTIPLE SOURCES
+                </p>
+              </div>
+              <div className="bg-[#cd48ec] text-black px-6 py-3 font-mono text-sm font-bold hover:bg-[#b93fd4] transition-colors cursor-pointer">
+                REFRESH FEED [↗]
+              </div>
+            </div>
+            
+            <GamingNews maxArticles={8} showImages={true} layout="list" />
+          </div>
+
           {/* Category Tags */}
-          <div className="border-t border-gray-800 pt-8">
+          <div className="border-t border-gray-800 pt-8 mt-12">
             <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-6">[EXPLORE_CATEGORIES]</h4>
             <div className="flex flex-wrap gap-3">
               <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
