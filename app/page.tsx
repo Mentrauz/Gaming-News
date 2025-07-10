@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Download, X, Square, Grid3X3, RotateCcw, Plus, Minus } from "lucide-react"
@@ -6,6 +9,52 @@ import { GamingNews, BreakingNewsTicker } from "@/components/GamingNews"
 import { HeroBreakingNewsSection, FeaturedEsportsStory, HardwareNewsCard, IndieGameNewsCard, MobileGamingNewsCard, LatestNewsGrid } from "@/components/CategoryNews"
 
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+
+  const categories = [
+    { id: 'fps_focus', label: 'FPS_FOCUS', query: '"first person shooter" OR "FPS game" OR "Call of Duty" OR "Counter-Strike" OR "Valorant" OR "Apex Legends" OR "Overwatch" OR "Doom"' },
+    { id: 'rpg_realm', label: 'RPG_REALM', query: '"role playing game" OR "RPG game" OR "Final Fantasy" OR "Elder Scrolls" OR "Witcher" OR "Baldur\'s Gate" OR "Elden Ring" OR "Cyberpunk 2077"' },
+    { id: 'indie_insider', label: 'INDIE_INSIDER', query: '"indie game" OR "independent game" OR "indie developer" OR "steam indie" OR "indie gaming" OR "small developer"' },
+    { id: 'hardware_hub', label: 'HARDWARE_HUB', query: '"gaming hardware" OR "gaming PC" OR "graphics card" OR "GPU" OR "RTX" OR "Radeon" OR "gaming laptop" OR "CPU gaming"' },
+    { id: 'rumor_radar', label: 'RUMOR_RADAR', query: '"gaming rumor" OR "game leak" OR "upcoming game" OR "game announcement" OR "game reveal" OR "rumored game" OR "leaked game"' },
+    { id: 'patch_notes', label: 'PATCH_NOTES', query: '"patch notes" OR "game update" OR "hotfix" OR "balance update" OR "game patch" OR "software update" OR "bug fix"' },
+    { id: 'esports_elite', label: 'ESPORTS_ELITE', query: 'esports OR "competitive gaming" OR "professional gaming" OR "gaming tournament" OR "esports championship" OR "gaming competition"' },
+    { id: 'dev_diaries', label: 'DEV_DIARIES', query: '"developer diary" OR "game development" OR "behind the scenes" OR "dev blog" OR "game developer" OR "development update"' }
+  ];
+
+  const handleCategoryClick = (categoryId: string) => {
+    if (isAnimating) return; // Prevent clicks during animation
+    
+    if (selectedCategory === categoryId) {
+      // Close the section
+      handleCloseCategory();
+    } else if (selectedCategory && selectedCategory !== categoryId) {
+      // Switch to different category
+      handleCloseCategory(() => {
+        setSelectedCategory(categoryId);
+        setShowContent(true);
+      });
+    } else {
+      // Open new section
+      setSelectedCategory(categoryId);
+      setShowContent(true);
+    }
+  };
+
+  const handleCloseCategory = (callback?: () => void) => {
+    setIsAnimating(true);
+    setShowContent(false);
+    
+    // Wait for close animation to complete
+    setTimeout(() => {
+      setSelectedCategory(null);
+      setIsAnimating(false);
+      if (callback) callback();
+    }, 400); // Match the slideUp animation duration
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -165,32 +214,53 @@ export default function HomePage() {
           <div className="border-t border-gray-800 pt-8 mt-12">
             <h4 className="text-sm font-black text-[#cd48ec] font-mono mb-6">[EXPLORE_CATEGORIES]</h4>
             <div className="flex flex-wrap gap-3">
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] FPS_FOCUS</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] RPG_REALM</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] INDIE_INSIDER</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] HARDWARE_HUB</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] RUMOR_RADAR</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] PATCH_NOTES</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] ESPORTS_ELITE</span>
-              </div>
-              <div className="bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-colors cursor-pointer">
-                <span className="font-mono text-sm">[●] DEV_DIARIES</span>
-              </div>
+                             {categories.map((category) => (
+                 <div
+                   key={category.id}
+                   className={`bg-gray-900 px-4 py-2 rounded border border-gray-700 hover:border-[#cd48ec] hover:bg-gray-800 transition-all duration-300 cursor-pointer ${
+                     selectedCategory === category.id ? 'border-[#cd48ec] bg-gray-800 category-tag-active' : ''
+                   } ${isAnimating ? 'pointer-events-none' : ''}`}
+                   onClick={() => handleCategoryClick(category.id)}
+                 >
+                   <span className="font-mono text-sm">[●] {category.label}</span>
+                 </div>
+               ))}
             </div>
           </div>
+
+                     {/* News Articles for Selected Category */}
+           {selectedCategory && (
+             <div className={`border-t border-gray-800 pt-8 mt-12 ${showContent ? 'category-expand' : 'category-collapse'}`}>
+               <div className="category-content">
+                 <div className="flex items-center justify-between mb-6">
+                   <h4 className="text-sm font-black text-[#cd48ec] font-mono">
+                     [{categories.find(cat => cat.id === selectedCategory)?.label}_NEWS]
+                   </h4>
+                   <div className="flex items-center space-x-3">
+                     {isAnimating && (
+                       <div className="inline-flex items-center space-x-2 text-gray-400 font-mono text-xs">
+                         <div className="w-3 h-3 border border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+                         <span>SWITCHING...</span>
+                       </div>
+                     )}
+                     <button
+                       onClick={() => handleCloseCategory()}
+                       className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded border border-gray-600 font-mono text-xs transition-all duration-200 hover:border-[#cd48ec] hover:shadow-lg disabled:opacity-50"
+                       disabled={isAnimating}
+                     >
+                       CLOSE [X]
+                     </button>
+                   </div>
+                 </div>
+                 <GamingNews
+                   maxArticles={4}
+                   showImages={true}
+                   layout="list"
+                   query={categories.find(cat => cat.id === selectedCategory)?.query}
+                 />
+               </div>
+             </div>
+           )}
         </div>
       </div>
 

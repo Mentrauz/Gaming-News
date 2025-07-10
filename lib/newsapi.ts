@@ -26,7 +26,7 @@ export interface NewsApiResponse {
   articles: NewsArticle[];
 }
 
-// Fetch gaming news from News API
+// Fetch gaming news from News API with enhanced category filtering
 export async function fetchGamingNews(
   query: string = '"video game" OR "PC gaming" OR "console gaming" OR "gaming news" OR "esports news"',
   pageSize: number = 20,
@@ -37,43 +37,103 @@ export async function fetchGamingNews(
     return [];
   }
 
-  // Try gaming sources first
-  const sourcesParams = new URLSearchParams({
-    sources: 'ign,polygon,the-verge',
-    q: query,
-    language: 'en',
-    sortBy: 'publishedAt',
-    pageSize: pageSize.toString(),
-    page: page.toString(),
-    apiKey: NEWS_API_KEY,
-  });
+  // Determine if this is a category-specific query
+  const isCategoryQuery = query.includes('"') && query.length > 50;
+  
+  // Use different source strategies based on query type
+  const sources = isCategoryQuery ? 
+    'ign,polygon,gamespot,kotaku,the-verge,techcrunch,pcgamer' : 
+    'ign,polygon,the-verge';
 
   try {
+    // Primary search with gaming sources
+    const sourcesParams = new URLSearchParams({
+      sources: sources,
+      q: query,
+      language: 'en',
+      sortBy: 'publishedAt',
+      pageSize: Math.min(pageSize * 2, 40).toString(), // Get more results to filter from
+      page: page.toString(),
+      apiKey: NEWS_API_KEY,
+    });
+
     const sourceResponse = await fetch(`${NEWS_API_BASE_URL}/everything?${sourcesParams}`);
     
     if (sourceResponse.ok) {
       const sourceData: NewsApiResponse = await sourceResponse.json();
       
       if (sourceData.status === 'ok' && sourceData.articles.length > 0) {
-        const filtered = sourceData.articles.filter(article => {
-          const text = `${article.title} ${article.description}`.toLowerCase();
-          return (text.includes('game') || text.includes('gaming') || text.includes('esports')) &&
-                 !text.includes('nba') && !text.includes('basketball') && 
-                 !text.includes('football') && !text.includes('soccer') &&
-                 !text.includes('blackpink') && !text.includes('kpop') &&
-                 !text.includes('music') && !text.includes('song');
-        });
+        let filtered = sourceData.articles;
         
-        if (filtered.length > 0) return filtered;
+        if (isCategoryQuery) {
+          // Enhanced filtering for category-specific queries
+          filtered = sourceData.articles.filter(article => {
+            const text = `${article.title} ${article.description}`.toLowerCase();
+            
+            // Extract key terms from the query for better matching
+            const queryTerms = query.toLowerCase()
+              .replace(/['"]/g, '')
+              .split(' or ')
+              .map(term => term.trim())
+              .filter(term => term.length > 2);
+            
+            // Check if article contains any of the query terms
+            const hasRelevantContent = queryTerms.some(term => 
+              text.includes(term) || 
+              article.title.toLowerCase().includes(term)
+            );
+            
+            // Exclude obviously non-gaming content
+            const excludeTerms = [
+              'nba', 'basketball', 'football', 'soccer', 'baseball', 'tennis',
+              'blackpink', 'kpop', 'music', 'song', 'album', 'concert',
+              'movie', 'film', 'netflix', 'streaming', 'tv show',
+              'politics', 'election', 'government', 'covid', 'vaccine'
+            ];
+            
+            const hasExcludedContent = excludeTerms.some(term => text.includes(term));
+            
+            return hasRelevantContent && !hasExcludedContent && article.title && article.description;
+          });
+        } else {
+          // General gaming content filter
+          filtered = sourceData.articles.filter(article => {
+            const text = `${article.title} ${article.description}`.toLowerCase();
+            return (text.includes('game') || text.includes('gaming') || text.includes('esports')) &&
+                   !text.includes('nba') && !text.includes('basketball') && 
+                   !text.includes('football') && !text.includes('soccer') &&
+                   !text.includes('blackpink') && !text.includes('kpop') &&
+                   !text.includes('music') && !text.includes('song');
+          });
+        }
+        
+        // Return up to the requested number of articles
+        const result = filtered.slice(0, pageSize);
+        
+        if (result.length >= Math.min(pageSize, 3)) {
+          return result;
+        }
+        
+        // If we don't have enough results, fall back to broader search
+        if (isCategoryQuery && result.length < 3) {
+          console.log(`Category query returned ${result.length} results, trying broader search...`);
+          // Extract first term from query for fallback
+          const firstTerm = query.split(' OR ')[0].replace(/['"]/g, '');
+          return await fetchGamingNews(`"${firstTerm}" AND (game OR gaming)`, pageSize, page);
+        }
+        
+        return result;
       }
     }
 
-    // Fallback to general search with strict filtering
+    // Fallback to general search if sources fail
     const params = new URLSearchParams({
-      q: '"video game news" OR "gaming industry" OR "PC game" OR "console game" OR "game release"',
+      q: isCategoryQuery ? 
+        `(${query}) AND (game OR gaming OR esports)` : 
+        '"video game news" OR "gaming industry" OR "PC game" OR "console game" OR "game release"',
       language: 'en',
       sortBy: 'publishedAt',
-      pageSize: pageSize.toString(),
+      pageSize: Math.min(pageSize * 2, 40).toString(),
       page: page.toString(),
       apiKey: NEWS_API_KEY,
     });
@@ -90,15 +150,34 @@ export async function fetchGamingNews(
       throw new Error(`News API error: ${data.status}`);
     }
 
-    // Strict filtering for gaming content only
+    // Enhanced filtering for fallback results
     const filtered = data.articles.filter(article => {
       const text = `${article.title} ${article.description}`.toLowerCase();
-      return (text.includes('video game') || text.includes('gaming') || text.includes('game')) &&
-             !text.includes('nba') && !text.includes('sports') && !text.includes('music') &&
-             !text.includes('blackpink') && !text.includes('kpop');
+      
+      if (isCategoryQuery) {
+        // For category queries, be more lenient but still relevant
+        const queryTerms = query.toLowerCase()
+          .replace(/['"]/g, '')
+          .split(' or ')
+          .map(term => term.trim())
+          .filter(term => term.length > 2);
+        
+        const hasRelevantContent = queryTerms.some(term => 
+          text.includes(term) || 
+          article.title.toLowerCase().includes(term)
+        ) || text.includes('game') || text.includes('gaming');
+        
+        return hasRelevantContent && 
+               !text.includes('nba') && !text.includes('sports') && 
+               !text.includes('music') && !text.includes('blackpink');
+      } else {
+        return (text.includes('video game') || text.includes('gaming') || text.includes('game')) &&
+               !text.includes('nba') && !text.includes('sports') && !text.includes('music') &&
+               !text.includes('blackpink') && !text.includes('kpop');
+      }
     });
 
-    return filtered || [];
+    return filtered.slice(0, pageSize) || [];
   } catch (error) {
     console.error('Error fetching gaming news:', error);
     return [];

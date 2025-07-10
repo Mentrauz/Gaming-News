@@ -9,12 +9,14 @@ interface GamingNewsProps {
   maxArticles?: number;
   showImages?: boolean;
   layout?: 'grid' | 'list';
+  query?: string;
 }
 
 export function GamingNews({ 
   maxArticles = 10, 
   showImages = true, 
-  layout = 'list' 
+  layout = 'list',
+  query 
 }: GamingNewsProps) {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,24 +28,30 @@ export function GamingNews({
         setLoading(true);
         setError(null);
         
-        // Fetch from multiple sources for better coverage
-        const [generalGamingNews, sourceSpecificNews] = await Promise.all([
-          fetchGamingNews('gaming OR esports OR video games', 10),
-          fetchNewsFromGamingSources('ign,polygon,gamespot,kotaku,the-verge', 10)
-        ]);
+        if (query) {
+          // Fetch news for specific category query
+          const categoryNews = await fetchGamingNews(query, maxArticles);
+          setArticles(categoryNews);
+        } else {
+          // Fetch from multiple sources for better coverage (default behavior)
+          const [generalGamingNews, sourceSpecificNews] = await Promise.all([
+            fetchGamingNews('gaming OR esports OR video games', 10),
+            fetchNewsFromGamingSources('ign,polygon,gamespot,kotaku,the-verge', 10)
+          ]);
 
-        // Combine and deduplicate articles
-        const allArticles = [...sourceSpecificNews, ...generalGamingNews];
-        const uniqueArticles = allArticles.filter((article, index, self) => 
-          index === self.findIndex(a => a.url === article.url)
-        );
+          // Combine and deduplicate articles
+          const allArticles = [...sourceSpecificNews, ...generalGamingNews];
+          const uniqueArticles = allArticles.filter((article, index, self) => 
+            index === self.findIndex(a => a.url === article.url)
+          );
 
-        // Sort by publication date (newest first)
-        const sortedArticles = uniqueArticles
-          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-          .slice(0, maxArticles);
+          // Sort by publication date (newest first)
+          const sortedArticles = uniqueArticles
+            .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+            .slice(0, maxArticles);
 
-        setArticles(sortedArticles);
+          setArticles(sortedArticles);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch gaming news');
       } finally {
@@ -52,13 +60,13 @@ export function GamingNews({
     }
 
     loadNews();
-  }, [maxArticles]);
+  }, [maxArticles, query]);
 
   if (loading) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="bg-gray-900 border border-gray-700 rounded-lg p-6 animate-pulse">
+        {Array.from({ length: query ? 4 : 3 }).map((_, i) => (
+          <div key={i} className="bg-gray-900 border border-gray-700 rounded-lg p-6 animate-pulse loading-pulse">
             <div className="flex space-x-4">
               {showImages && <div className="w-20 h-20 bg-gray-700 rounded flex-shrink-0" />}
               <div className="flex-1 space-y-2">
@@ -69,6 +77,14 @@ export function GamingNews({
             </div>
           </div>
         ))}
+        {query && (
+          <div className="text-center py-4">
+            <div className="inline-flex items-center space-x-2 text-[#cd48ec] font-mono text-sm">
+              <div className="w-4 h-4 border-2 border-[#cd48ec] border-t-transparent rounded-full animate-spin"></div>
+              <span>LOADING CATEGORY NEWS...</span>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -108,7 +124,7 @@ export function GamingNews({
       {articles.map((article, index) => (
         <article 
           key={article.url} 
-          className="bg-gray-900 border border-gray-700 rounded-lg hover:border-[#cd48ec] transition-colors group cursor-pointer overflow-hidden"
+          className="bg-gray-900 border border-gray-700 rounded-lg hover:border-[#cd48ec] transition-colors group cursor-pointer overflow-hidden news-item-enter"
           onClick={() => window.open(article.url, '_blank')}
         >
           {showImages && article.urlToImage && layout === 'grid' && (
