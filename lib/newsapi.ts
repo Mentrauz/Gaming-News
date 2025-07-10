@@ -568,3 +568,208 @@ export async function fetchBreakingGameNews(pageSize: number = 1): Promise<NewsA
     return [];
   }
 } 
+
+// Fetch featured game news for weekly spotlight
+export async function fetchFeaturedGameNews(pageSize: number = 3): Promise<NewsArticle[]> {
+  if (!NEWS_API_KEY) {
+    console.error('News API key not configured');
+    return [];
+  }
+
+  const featuredGameQueries = [
+    '"game review" OR "game of the year" OR "must play" OR "best game"',
+    '"new game release" OR "upcoming game" OR "game launch" OR "highly anticipated"',
+    '"award winning game" OR "critically acclaimed" OR "metacritic" OR "game awards"'
+  ];
+
+  try {
+    const allResults: NewsArticle[] = [];
+
+    for (const query of featuredGameQueries) {
+      const params = new URLSearchParams({
+        sources: 'ign,polygon,gamespot,kotaku,the-verge,techcrunch',
+        q: query,
+        language: 'en',
+        sortBy: 'publishedAt',
+        pageSize: '10',
+        apiKey: NEWS_API_KEY!,
+      });
+
+      const response = await fetch(`${NEWS_API_BASE_URL}/everything?${params}`);
+      
+      if (response.ok) {
+        const data: NewsApiResponse = await response.json();
+        
+        if (data.status === 'ok') {
+          const filtered = data.articles.filter(article => {
+            const text = `${article.title} ${article.description}`.toLowerCase();
+            return (text.includes('game') || text.includes('gaming')) &&
+                   !text.includes('nba') && !text.includes('basketball') && 
+                   !text.includes('football') && !text.includes('soccer') &&
+                   !text.includes('music') && !text.includes('blackpink') &&
+                   article.title && article.description && article.urlToImage;
+          });
+          
+          allResults.push(...filtered);
+        }
+      }
+    }
+
+    // Remove duplicates and sort by date
+    const uniqueArticles = allResults.filter((article, index, self) => 
+      index === self.findIndex(a => a.url === article.url)
+    );
+
+    return uniqueArticles
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+      .slice(0, pageSize);
+
+  } catch (error) {
+    console.error('Error fetching featured game news:', error);
+    return [];
+  }
+}
+
+// Fetch developer and industry news for spotlight
+export async function fetchDeveloperSpotlightNews(pageSize: number = 3): Promise<NewsArticle[]> {
+  if (!NEWS_API_KEY) {
+    console.error('News API key not configured');
+    return [];
+  }
+
+  const developerQueries = [
+    '"game developer" OR "developer interview" OR "game studio" OR "indie developer"',
+    '"gaming industry" OR "game development" OR "behind the scenes" OR "dev diary"',
+    '"game creator" OR "industry veteran" OR "gaming executive" OR "studio head"'
+  ];
+
+  try {
+    const allResults: NewsArticle[] = [];
+
+    for (const query of developerQueries) {
+      const params = new URLSearchParams({
+        sources: 'ign,polygon,gamespot,kotaku,the-verge,techcrunch,gamasutra',
+        q: query,
+        language: 'en',
+        sortBy: 'publishedAt',
+        pageSize: '10',
+        apiKey: NEWS_API_KEY!,
+      });
+
+      const response = await fetch(`${NEWS_API_BASE_URL}/everything?${params}`);
+      
+      if (response.ok) {
+        const data: NewsApiResponse = await response.json();
+        
+        if (data.status === 'ok') {
+          const filtered = data.articles.filter(article => {
+            const text = `${article.title} ${article.description}`.toLowerCase();
+            return (text.includes('developer') || text.includes('studio') || 
+                   text.includes('industry') || text.includes('development')) &&
+                   (text.includes('game') || text.includes('gaming')) &&
+                   !text.includes('nba') && !text.includes('basketball') && 
+                   !text.includes('music') && !text.includes('blackpink') &&
+                   article.title && article.description;
+          });
+          
+          allResults.push(...filtered);
+        }
+      }
+    }
+
+    // Remove duplicates and sort by date
+    const uniqueArticles = allResults.filter((article, index, self) => 
+      index === self.findIndex(a => a.url === article.url)
+    );
+
+    return uniqueArticles
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+      .slice(0, pageSize);
+
+  } catch (error) {
+    console.error('Error fetching developer spotlight news:', error);
+    return [];
+  }
+}
+
+// Extract game name from article title for featured spotlight
+export function extractGameName(title: string): string {
+  // Common gaming terms and patterns
+  const gamePatterns = [
+    // Direct game mentions with quotes or specific formatting
+    /"([^"]+)"/,
+    /'([^']+)'/,
+    /\b([A-Z][a-zA-Z0-9\s:'-]{2,30})\s+(Review|Preview|Update|Gets|Launches|Beta|Demo|DLC|Patch)/i,
+    /\b(Call of Duty|Final Fantasy|Elder Scrolls|Grand Theft Auto|Assassin's Creed|Far Cry|Watch Dogs|Tom Clancy's|Dead Space|Mass Effect|Dragon Age|Battlefield|Need for Speed|The Sims|FIFA|Madden|NBA 2K|WWE 2K|Mortal Kombat|Street Fighter|Tekken|Super Mario|The Legend of Zelda|Pokemon|Metroid|Donkey Kong|Kirby|Star Fox|Fire Emblem|Xenoblade|Splatoon|Animal Crossing|Mario Kart|Super Smash Bros|Halo|Gears of War|Forza|Fable|Age of Empires|Microsoft Flight Simulator|Sea of Thieves|State of Decay|Ori and the|Cuphead|Among Us|Fall Guys|Rocket League|Minecraft|Roblox|Fortnite|PUBG|Apex Legends|Overwatch|Counter-Strike|Valorant|League of Legends|Dota|World of Warcraft|Hearthstone|Diablo|StarCraft|Heroes of the Storm|Destiny|The Division|Rainbow Six|Splinter Cell|Ghost Recon|For Honor|The Crew|Just Dance|Rayman|Beyond Good and Evil|Prince of Persia|Might and Magic|Anno|Settlers|Blue Byte|Trials|TrackMania|Steep|Riders Republic|Avatar|South Park|Scott Pilgrim|Child of Light|Valiant Hearts|This War of Mine|Papers Please|Hollow Knight|Celeste|Hades|Bastion|Transistor|Pyre|Supergiant|Ori and|Cuphead|Spelunky|Binding of Isaac|Super Meat Boy|Hotline Miami|Katana Zero|Dead Cells|Rogue Legacy|FTL|Into the Breach|Slay the Spire|Darkest Dungeon|Risk of Rain|Enter the Gungeon|Nuclear Throne|Hyper Light Drifter|Shovel Knight|A Hat in Time|Pizza Tower|Sonic|Crash Bandicoot|Spyro|Rayman|Psychonauts|Grim Fandango|Day of the Tentacle|Monkey Island|Sam & Max|Full Throttle|Indiana Jones|Star Wars|Marvel|DC Comics|Batman|Superman|Spider-Man|X-Men|Avengers|Guardians of the Galaxy|Iron Man|Captain America|Thor|Hulk|Black Widow|Fantastic Four|Deadpool|Wolverine|Daredevil|Punisher|Ghost Rider|Blade|Doctor Strange|Ant-Man|Captain Marvel|Black Panther|Shang-Chi|Eternals|Moon Knight|She-Hulk|Ms. Marvel|Hawkeye|Falcon|Winter Soldier|WandaVision|Loki|What If|Groot|Rocket|Star-Lord|Gamora|Drax|Mantis|Nebula|Yondu|Ego|Thanos|Infinity|Endgame|Civil War|Age of Ultron|Dark World|First Avenger|Ragnarok|Homecoming|Far From Home|No Way Home|Multiverse|Madness|Love and Thunder|Wakanda Forever|Quantumania|Volume|Phase|MCU|DCEU|Justice League|Wonder Woman|Aquaman|Flash|Green Lantern|Cyborg|Shazam|Black Adam|Blue Beetle|Supergirl|Batgirl|Nightwing|Robin|Red Hood|Red Robin|Batwoman|Catwoman|Joker|Harley Quinn|Poison Ivy|Two-Face|Penguin|Riddler|Scarecrow|Ra's al Ghul|Bane|Killer Croc|Mr. Freeze|Clayface|Mad Hatter|Calendar Man|Solomon Grundy|Deadshot|Captain Boomerang|El Diablo|Killer Shark|Katana|Rick Flag|Amanda Waller|Task Force X|Suicide Squad|Birds of Prey|Teen Titans|Doom Patrol|Legends of Tomorrow|Arrow|Supergirl|Batwoman|Black Lightning|Stargirl|Titans|Peacemaker|The Batman|Dark Knight|Man of Steel|Batman v Superman|Wonder Woman|Aquaman|Shazam|Birds of Prey|The Suicide Squad|The Flash|Black Adam|Blue Beetle|Aquaman and the Lost Kingdom)\b[^.]*?(?=\s|$)/i,
+    // Generic pattern for game titles (capitalize first letter of each word, limit length)
+    /\b([A-Z][a-zA-Z0-9\s:'-]{2,25})(?=\s+(game|gaming|release|launch|update|review|preview|beta|alpha|demo|trailer|gameplay|patch|DLC|expansion|sequel|prequel|remaster|remake|port|version|edition|collection|bundle|set|series|franchise|IP|title|project))/i,
+  ];
+
+  for (const pattern of gamePatterns) {
+    const match = title.match(pattern);
+    if (match && match[1]) {
+      let gameName = match[1].trim();
+      
+      // Clean up common prefixes and suffixes
+      gameName = gameName
+        .replace(/^(The|A|An)\s+/i, '')
+        .replace(/\s+(Game|Gaming|Review|Preview|Update|News|Trailer|Beta|Alpha|Demo|DLC|Expansion|Sequel|Prequel|Remaster|Remake|Port|Version|Edition|Collection|Bundle|Set|Series|Franchise|Title|Project).*$/i, '')
+        .replace(/['"]/g, '')
+        .trim();
+      
+      // Limit length and ensure it's meaningful
+      if (gameName.length >= 3 && gameName.length <= 30) {
+        return gameName;
+      }
+    }
+  }
+
+  // Fallback: extract first capitalized phrase
+  const fallbackMatch = title.match(/\b([A-Z][a-zA-Z0-9\s]{2,20})\b/);
+  if (fallbackMatch) {
+    return fallbackMatch[1].trim();
+  }
+
+  return 'Latest Gaming News';
+}
+
+// Extract developer/studio name from article
+export function extractDeveloperName(title: string, description: string): string {
+  const text = `${title} ${description}`.toLowerCase();
+  
+  // Known studios/developers (shortened for UI display)
+  const knownStudios = [
+    'CD Projekt', 'FromSoftware', 'Naughty Dog', 'Valve', 'Epic Games',
+    'Bungie', 'Bethesda', 'Ubisoft', 'EA', 'Activision', 'Blizzard',
+    'Nintendo', 'Sony', 'Microsoft', 'Rockstar', 'Square Enix',
+    'Capcom', 'Konami', 'Kojima Productions', 'Insomniac', 'Team Cherry',
+    'Santa Monica', 'Guerrilla', 'Sucker Punch', 'Supergiant', 'Motion Twin',
+    'id Software', 'Machine Games', 'Arkane', 'Tango Gameworks',
+    'Hello Games', 'Coffee Stain', 'Ghost Ship', 'Devolver Digital'
+  ];
+
+  for (const studio of knownStudios) {
+    if (text.includes(studio.toLowerCase())) {
+      return studio;
+    }
+  }
+
+  // Extract company names with size limits
+  const patterns = [
+    /(\w{2,15})\s+(?:games|studio|studios|entertainment|interactive|software|productions?)/i,
+    /(?:by|from|developed by|published by|created by)\s+(\w{2,15}(?:\s+\w{2,10})?)/i,
+    /(\w{2,15})\s+(?:developer|team|company)/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match && match[1]) {
+      let name = match[1].trim();
+      if (name.length >= 2 && name.length <= 20) {
+        return name;
+      }
+    }
+  }
+
+  return 'Game Studios';
+} 
