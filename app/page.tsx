@@ -403,35 +403,53 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Gaming Coverage */}
+            {/* Gaming Legends */}
             <div className="space-y-6">
-              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[GAMING_COVERAGE]</h3>
+              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[GAMING_LEGENDS]</h3>
               <div className="space-y-3 font-mono text-sm">
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] LATEST DROPS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] PATCH NOTES</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] GAMING NEWS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] RUMOR RADAR</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] FPS FOCUS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] DEV INTERVIEWS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] DROP REVIEWS</div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>WAR. WAR NEVER CHANGES.<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- FALLOUT</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>THE CAKE IS A LIE.<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- PORTAL</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>A MAN CHOOSES, A SLAVE OBEYS.<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- BIOSHOCK</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>FINISH HIM!<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- MORTAL KOMBAT</div>
+                </div>
               </div>
             </div>
 
-            {/* Tech Hub */}
+            {/* Epic Moments */}
             <div className="space-y-6">
-              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[TECH_HUB]</h3>
+              <h3 className="text-lg font-black text-[#cd48ec] font-mono">[EPIC_MOMENTS]</h3>
               <div className="space-y-3 font-mono text-sm">
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] HARDWARE REVIEWS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] BENCHMARKS</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] PRICE TRACKER</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] BUILD GUIDES</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] GPU UPDATES</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] COOLING TECH</div>
-                <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">[●] MARKET ANALYSIS</div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>WAKE UP, MR. FREEMAN.<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- HALF-LIFE</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>IT'S DANGEROUS TO GO ALONE!<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- ZELDA</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>KEPT YOU WAITING, HUH?<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- METAL GEAR</div>
+                </div>
+                <div className="text-gray-400 hover:text-[#cd48ec] transition-colors cursor-pointer group">
+                  <span className="opacity-60">"</span>STAY AWHILE AND LISTEN.<span className="opacity-60">"</span>
+                  <div className="text-xs opacity-50 group-hover:opacity-70">- DIABLO</div>
+                </div>
               </div>
             </div>
 
-            {/* Newsletter Signup */}
+            {/* Newsletter Signup - moved to the right */}
             <div className="space-y-6">
               <h3 className="text-lg font-black text-[#cd48ec] font-mono">[STAY_CONNECTED]</h3>
               <p className="text-gray-400 text-sm font-mono">
